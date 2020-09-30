@@ -23,6 +23,12 @@
   }
 }
 
+.navbar-brand {
+  img {
+    max-height: 46px;
+  }
+}
+
 .navbar-light .navbar-nav .nav-link {
   color: $text-color-dark;
   &:hover{

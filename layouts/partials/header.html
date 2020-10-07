@@ -3,7 +3,10 @@
   <div class="container">
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-      <a class="navbar-brand"href="{{ .Site.BaseURL }}"><img class="img-fluid" src="{{ .Site.Params.logo | relURL }}" alt="{{ .Site.Title }}"></a>
+
+      <a class="navbar-brand" href="{{ .Site.BaseURL | relLangURL }}">
+        <img class="img-fluid" src="{{ .Site.Params.logo | relURL }}" alt="{{ .Site.Title }}">
+      </a>
       <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
         <i class="ti-menu h3"></i>
       </button>
@@ -11,28 +14,29 @@
       <div class="collapse navbar-collapse text-center" id="navigation">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{ .Site.BaseURL }}">{{ with .Site.Params.Home }} {{ . }} {{ end }}</a>
+            <a class="nav-link" href="{{ .Site.BaseURL | relLangURL }}">{{ with .Site.Params.Home }} {{ . }} {{ end }}</a>
           </li>
           {{ range .Site.Menus.main }}
-            {{ if .HasChildren }}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                {{ .Name }}
-              </a>
-              <div class="dropdown-menu">
-                {{ range .Children }}
-                <a class="dropdown-item" href="{{ .URL | absURL }}">{{ .Name }}</a>
-                {{ end }}
-              </div>
-            </li>
-            {{ else }}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
-            </li>
-            {{ end }}
+          {{ if .HasChildren }}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+               aria-expanded="false">
+              {{ .Name }}
+            </a>
+            <div class="dropdown-menu">
+              {{ range .Children }}
+              <a class="dropdown-item" href="{{ .URL | absURL }}">{{ .Name }}</a>
+              {{ end }}
+            </div>
+          </li>
+          {{ else }}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
+          </li>
+          {{ end }}
           {{ end }}
         </ul>
+
         {{ if .Site.Params.search.enable }}
         {{ "<!-- search -->" | safeHTML }}
         <div class="search">
@@ -45,6 +49,31 @@
           </div>
         </div>
         {{ end }}
+
+        <!-- Language List -->
+        {{- if and (.Site.IsMultiLingual) ( gt (len .Page.AllTranslations) 1) }}
+        <div>
+          <select class="form-control mx-auto mx-lg-2" id="select-language" onchange="location = this.value;">
+            {{ $siteLanguages := .Site.Languages}}
+            {{ $pageLang := .Page.Lang}}
+            {{ range .Page.AllTranslations }}
+            {{ $translation := .}}
+            {{ range $siteLanguages }}
+            {{ if eq $translation.Lang .Lang }}
+            {{ $selected := false }}
+            {{ if eq $pageLang .Lang}}
+            <option id="{{ $translation.Language }}" value="{{ $translation.URL }}" selected>{{ .LanguageName }}
+            </option>
+            {{ else }}
+            <option id="{{ $translation.Language }}" value="{{ $translation.URL }}">{{ .LanguageName }}</option>
+            {{ end }}
+            {{ end }}
+            {{ end }}
+            {{ end }}
+          </select>
+        </div>
+        {{ end }}
+
       </div>
     </nav>
   </div>

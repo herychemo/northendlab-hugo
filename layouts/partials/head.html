@@ -12,6 +12,18 @@
   <meta name="author" content="{{ . }}">{{ end }}
   {{ hugo.Generator }}
 
+  {{ "<!-- If Params Author and image exists, this is a post -->" | safeHTML }}
+  {{ if and .Params.Author .Params.Image }}
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:image" content="{{ .Params.Image | relURL }}" />
+  {{ if .Title }}<meta property="og:title" content="{{ .Title }}" />{{ end }}
+  {{ if .Description }}
+  <meta property="og:description" content="{{ .Description }}" />
+  <meta property="og:image:alt" content="{{ .Description }}" />
+  {{ end }}
+  {{ end }}
+
   {{ "<!-- plugins -->" | safeHTML }}
   {{ range .Site.Params.plugins.css }}
   <link rel="stylesheet" href="{{ .link | absURL }} ">

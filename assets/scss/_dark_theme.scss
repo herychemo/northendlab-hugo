@@ -26,9 +26,17 @@ body.theme-dark {
   .nav-bg {
     background-color: $dark-bg-darker;
   }
+  @media (max-width: 991px) {
+    .navigation {
+      background: $dark-bg-darker;
+    }
+  }
 
   .footer-bg, .bg-block {
     background-color: $dark-bg-darker!important;
+  }
+  .disqus-block {
+    background-color: $dark-bg-lighter!important;
   }
 
   .search-box {

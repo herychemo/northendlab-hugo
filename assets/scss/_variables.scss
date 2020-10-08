@@ -2,8 +2,17 @@
 $primary-color: #E8505B;
 $secondary-color: #9AC4F8;
 $text-color: #666666;
-$text-color-dark: #222222;
+
+$dark-bg: #404040;
+$dark-bg-darker: #2C2C2C;
+$dark-text-color: #C1C1C1;
+$dark-text-meta: #D4D4D4;
+$dark-text-color-light: #DDDDDD;
+$dark-nav-link: rgba(255,255,255,.5);
+
+$text-color-dark: #2C2C2C;
 $body-color: #fff;
+$dark-body-color: $dark-bg;
 $border-color: #ACB9C4;
 $black: #000;
 $white: #fff;

@@ -2,7 +2,7 @@
 <header class="fixed-top navigation">
   <div class="container">
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <nav class="navbar navbar-expand-lg bg-transparent">
 
       <a class="navbar-brand" href="{{ .Site.BaseURL | relLangURL }}">
         <img class="img-fluid" src="{{ .Site.Params.logo | relURL }}" alt="{{ .Site.Title }}">
@@ -53,7 +53,7 @@
         <!-- Language List -->
         {{- if and (.Site.IsMultiLingual) ( gt (len .Page.AllTranslations) 1) }}
         <div>
-          <select class="form-control mx-auto mx-lg-2" id="select-language" onchange="location = this.value;">
+          <select class="form-control mx-auto mx-lg-2 nav-select" id="select-language" onchange="location = this.value;">
             {{ $siteLanguages := .Site.Languages}}
             {{ $pageLang := .Page.Lang}}
             {{ range .Page.AllTranslations }}
@@ -73,6 +73,13 @@
           </select>
         </div>
         {{ end }}
+
+        <div>
+          <select class="form-control mx-auto mx-lg-2 nav-select" id="select-theme" onchange="onThemeChange(this.value);">
+            <option id="theme-light" value="theme-light">Light Theme</option>
+            <option id="theme-dark" value="theme-dark">Dark Theme</option>
+          </select>
+        </div>
 
       </div>
     </nav>

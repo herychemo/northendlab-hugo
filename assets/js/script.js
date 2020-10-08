@@ -4,6 +4,12 @@
   // Preloader js    
   $(window).on('load', function () {
     $('.preloader').fadeOut(100);
+
+    let theme = localStorage.getItem('app-theme');
+    if (theme) {
+      $('#select-theme').val(theme);
+      onThemeChange(theme);
+    }
   });
 
   // navigation
@@ -27,3 +33,14 @@
   });
 
 })(jQuery);
+
+const onThemeChange = function(theme) {
+  const $body = $('body');
+
+  $body.removeClass(function (index, className) {
+    return (className.match (/(^|\s)theme-\S+/g) || []).join(' ');
+  });
+
+  $body.addClass(theme);
+  localStorage.setItem('app-theme', theme);
+}

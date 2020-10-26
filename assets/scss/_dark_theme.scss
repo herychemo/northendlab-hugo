@@ -43,6 +43,15 @@ body.theme-dark {
     background-color: $dark-bg-darker!important;
     color: white;
   }
+
+  .content {
+    pre {
+      background: $dark-bg-darker;
+    }
+    code {
+      color: $dark-code-text;
+    }
+  }
 }
 
 /* Gists */
